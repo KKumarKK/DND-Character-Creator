@@ -1,0 +1,70 @@
+{% extends "layout.html" %}
+{% block title %}
+    Spells
+{% endblock %}
+{% block content %}
+<p></p>
+<input onekeyup = "myFunction()" id = "Input" placeholder="Search in Table">
+
+<ul></ul>
+
+    <script src=
+        "https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js">
+    </script>
+
+    <script>
+        $(document).ready(function() {
+            $("#Input").on("keyup", function() {
+                var value = $(this).val().toLowerCase();
+                $("#spell tr").filter(function() {
+                    $(this).toggle($(this).text()
+                    .toLowerCase().indexOf(value) > -1)
+                });
+            });
+        });
+    </script>
+
+    <div style="text-align:center;">
+        <h4> Spells with Random Element</h4>
+    </div>
+
+    <div class="container">
+    <table id = "Spells" class="table" border = "1" cellpadding = "1" cellspacing = "1">
+        <thead>
+        <tr class = "header" >
+            <th style = "background-color: rgb(165, 137, 61)">Name</th>
+            <th style = "background-color: rgb(165, 137, 61)">Level</th>
+            <th style = "background-color: rgb(165, 137, 61)">School</th>
+            <th style = "background-color: rgb(165, 137, 61)">Class</th>
+            <th style = "background-color: rgb(165, 137, 61)">Casting Time</th>
+            <th style = "background-color: rgb(165, 137, 61)">Spell Range</th>
+            <th style = "background-color: rgb(165, 137, 61)">Components</th>
+            <th style = "background-color: rgb(165, 137, 61)">Duration</th>
+            <th style = "background-color: rgb(165, 137, 61)">Description</th>
+        </tr>
+        </thead>
+        <tbody id = "spell">
+        {% for item in items %}
+            <tr>
+                <td>{{item.name}}</td>
+                <td>{{item.level}}</td>
+                <td>{{item.school}}</td>
+                <td>{{item.classes}}</td>
+                <td>{{item.Casting_Time}}</td>
+                <td>{{item.spellRange}}</td>
+                <td>{{item.Components}}</td>
+                <td>{{item.Duration}}</td>
+                <td>
+                    <details>
+                    <summary>Description</summary>
+                    {{item.description}}
+                    </details>
+                </td>
+            </tr>
+        {% endfor %}    
+        </tbody>
+
+    </table>
+    </div>
+
+{% endblock %}

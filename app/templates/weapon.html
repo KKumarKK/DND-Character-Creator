@@ -1,0 +1,113 @@
+{% extends "layout.html" %}
+{% block title %}
+    Weapon
+{% endblock %}
+{% block content %}
+<input onekeyup = "myFunction()" id = "Input" placeholder="Search in Table">
+
+<ul></ul>
+
+    <script src=
+        "https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js">
+    </script>
+
+    <script>
+        $(document).ready(function() {
+            $("#Input").on("keyup", function() {
+                var value = $(this).val().toLowerCase();
+                $("#weapon tr").filter(function() {
+                    $(this).toggle($(this).text()
+                    .toLowerCase().indexOf(value) > -1)
+                });
+            });
+        });
+    </script>
+    
+    <div style="text-align:center;">
+        <h4> Weapons</h4>
+    </div>
+
+    <div class="container">
+    <table id = "Weapons" class="table" border = "1" cellpadding = "1" cellspacing = "1">
+            <thead>
+            <tr class = "header">
+                <th style = "background-color: rgb(165, 137, 61)" scope="col">#</th>
+                <th style = "background-color: rgb(165, 137, 61)" scope="col">Name</th>
+                <th style = "background-color: rgb(165, 137, 61)" scope="col">Cost</th>
+                <th style = "background-color: rgb(165, 137, 61)" scope="col">Damage</th>
+                <th style = "background-color: rgb(165, 137, 61)" scope="col">Damage Type</th>
+                <th style = "background-color: rgb(165, 137, 61)" scope="col">Weight</th>
+                <th style = "background-color: rgb(165, 137, 61)" scope="col">Properties</th>
+                <th style = "background-color: rgb(165, 137, 61)" scope="col">Category</th>
+            </tr>
+            </thead>
+            <tbody id = "weapon">
+            {% for item in items %}
+                <tr>
+                    <th scope="row">{{loop.index}}</th>
+                    <td>{{item.name}}</td>
+                    <td>{{item.cost}}</td>
+                    <td>{{item.damage}}</td>
+                    <td>{{item.damageType}}</td>
+                    <td>{{item.weight}}</td>
+                    <td>{{item.properties}}</td>
+                    <td>{{item.category}}</td>
+                </tr>
+            {% endfor %}    
+            </tbody>
+        </table>
+    </div>
+
+    <div>
+        <h6> Random A New Weapon </h6>
+        <form action="/randomNewWeapon">
+            <input type="submit" value="Random">
+        </form>
+    </div>
+
+    <p></p>
+    <details>
+            <summary>   Delete</summary>
+        <p></p>
+        <form action="/removeWeapon" method="post">
+            <input autocomplete="off" autofocus="off" placeholder="Weapon Name" name="weaponName" type="text">
+            <input type="submit" name="submit_button" value="Remove">
+        </form>
+    </details>
+
+    <p></p>
+    <details>
+            <summary>   Update values </summary>
+        <p></p>
+            <form action="/updWeapon" method="post">
+            <label for="name">Old Weapon name:</label><br>
+            <input type="text" id="oldname" name="oldname"><br>
+            <label for="cost">New Weapon name:</label><br>
+            <input type="text" id="newname" name="newname"><br>
+            <button type="submit">Submit</button>
+        </form>
+    </details>
+
+    <p></p>
+    <details>
+            <summary>   Add values </summary>
+        <p></p>
+            <form action="/add" method="post">
+            <label for="name">Weapon name:</label><br>
+            <input type="text" id="name" name="name"><br>
+            <label for="cost">Cost:</label><br>
+            <input type="text" id="cost" name="cost"><br>
+            <label for="damage">Damage:</label><br>
+            <input type="text" id="damage" name="damage"><br>
+            <label for="damageType">Damage Type:</label><br>
+            <input type="text" id="damageType" name="damageType"><br>
+            <label for="weight">Weight:</label><br>
+            <input type="text" id="weight" name="weight"><br>
+            <label for="properties">Properties:</label><br>
+            <input type="text" id="properties" name="properties"><br>
+            <label for="category">Category:</label><br>
+            <input type="text" id="category" name="category"><br>
+            <button type="submit">Submit</button>
+            </form>
+        </details>
+{% endblock %}

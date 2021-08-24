@@ -1,0 +1,69 @@
+{% extends "layout.html" %}
+{% block title %}
+    Character Creation Step 1:
+{% endblock %}
+{% block content %}
+    
+
+<form action="/createCharacterStep2" method="post">
+
+    <label for="Class">Choose a Class:</label>  
+    <select name="DNDclass" id="DNDclass" >
+      {% for item in classes %}
+      <option value={{item.name}}>{{item.name}}</option>
+      {% endfor %}  
+    </select>
+    <ul id="ulClassDesc"></ul>
+    
+    <label for="DNDrace">Choose a Race:</label>
+    <select name="DNDrace" id="DNDrace">
+      {% for item in races %}
+      <option value={{item.name}},{{item.AB1}},{{item.AB2}},{{item.ABscore1}},{{item.ABscore2}}>{{item.name}}</option>
+      {% endfor %}  
+    </select>
+
+    <ul id="ulRaceDesc"></ul>
+    
+    <label for="DNDbackground">Choose a Background:</label>
+    <select name="DNDbackground" id="DNDbackground">
+      <!–– very interesting bug, the space between 2 words makes value broken  ––>
+      {% for item in backgrounds %}
+        {% if " " in item.name %}
+          {% set name = item.name.replace(" ","_") %}
+        {% else %}
+          {% set name = item.name %}
+        {% endif %}
+          <option value={{name}}>{{item.name}}</option>
+      {% endfor %} 
+    </select>
+
+    <ul id="ulBgDesc"></ul>
+    <input type="submit" value="Submit">
+  </form>
+  
+  <script>
+    let DNDclass = document.getElementById("DNDclass");
+    let DNDrace = document.getElementById("DNDrace");
+    let DNDbg = document.getElementById("DNDbackground");
+
+    DNDclass.addEventListener('change', function() {
+      $.get('/lookupDesc', {"class":DNDclass.value}, function(show){
+        document.getElementById('ulClassDesc').innerHTML = '<li> Description: ' + show + '</li>';
+        });
+      });
+    
+    DNDrace.addEventListener('change', function() {
+      $.get('/lookupDesc', {"race":DNDrace.value.split(",")[0]}, function(show) {
+        document.getElementById('ulRaceDesc').innerHTML = '<li> Description: ' + show + '</li>';
+      })
+    })
+
+    DNDbg.addEventListener('change', function() {
+      $.get('/lookupDesc', {"bg":DNDbg.value}, function(show) {
+        document.getElementById('ulBgDesc').innerHTML = '<li> Description: ' + show + '</li>';
+      })
+    })
+
+  </script>
+  
+{% endblock %}

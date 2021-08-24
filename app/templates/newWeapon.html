@@ -1,0 +1,61 @@
+{% extends "layout.html" %}
+{% block title %}
+    New Weapon
+{% endblock %}
+{% block content %}
+<input onekeyup = "myFunction()" id = "Input" placeholder="Search in Table">
+
+<ul></ul>
+
+    <script src=
+        "https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js">
+    </script>
+
+    <script>
+        $(document).ready(function() {
+            $("#Input").on("keyup", function() {
+                var value = $(this).val().toLowerCase();
+                $("#weapon tr").filter(function() {
+                    $(this).toggle($(this).text()
+                    .toLowerCase().indexOf(value) > -1)
+                });
+            });
+        });
+    </script>
+
+
+<div style="text-align:center;">
+    <h4> Weapons with Random Element</h4>
+</div>
+
+    <div class="container">
+        <table class="table">
+            <thead>
+                <tr class = "header">
+                    <th style = "background-color: rgb(165, 137, 61)" scope="col">#</th>
+                    <th style = "background-color: rgb(165, 137, 61)" scope="col">Name</th>
+                    <th style = "background-color: rgb(165, 137, 61)" scope="col">Cost</th>
+                    <th style = "background-color: rgb(165, 137, 61)" scope="col">Damage</th>
+                    <th style = "background-color: rgb(165, 137, 61)" scope="col">Damage Type</th>
+                    <th style = "background-color: rgb(165, 137, 61)" scope="col">Weight</th>
+                    <th style = "background-color: rgb(165, 137, 61)" scope="col">Properties</th>
+                    <th style = "background-color: rgb(165, 137, 61)" scope="col">Category</th>
+                </tr>
+            </thead>
+            <tbody>
+            {% for item in items %}
+                <tr>
+                    <th scope="row">{{loop.index}}</th>
+                    <td>{{item.name}}</td>
+                    <td>{{item.cost}}</td>
+                    <td>{{item.damage}}</td>
+                    <td>{{item.damageType}}</td>
+                    <td>{{item.weight}}</td>
+                    <td>{{item.properties}}</td>
+                    <td>{{item.category}}</td>
+                </tr>
+            {% endfor %}    
+            </tbody>
+        </table>
+    </div>
+{% endblock %}

@@ -1,0 +1,67 @@
+{% extends "layout.html" %}
+{% block title %}
+    Character Creation Step 3:
+{% endblock %}
+{% block content %}
+    
+<form action="/createCharacterStep4" method="post">
+<p>You gain skills from your choices:
+  <br>
+  <br>
+  <strong>Class: </strong>{{DNDclass}} - choose {{numCskills}} skills
+  <br>
+  
+  
+
+
+  {% for part in range(numCskills) %}
+  <select name=Prof{{part}} id=Prof{{part}}>
+      {% for item in DNDCskills %}
+    
+      
+      <option value={{item.name}}>{{item.name}}</option>
+      {% endfor %}
+    </select>  
+      {% endfor %} 
+    </select>
+    
+
+  <br>
+  <br>
+  <strong>Race: </strong>{{DNDrace}}
+  <br>
+  <!-- We are just going to take the first two skills if they have that many, choosing for this one is a bit wonky because not everyone chooses -->
+  
+  
+
+  {%if DNDRskills %}
+  {% for item in DNDRskills %}
+  <small>
+  -&ensp;{{item.name}}
+  <input type="text" name=rSkill id=rSkill, value ={{item.name}} hidden></input>
+  </small><br>
+  {% endfor %}
+  
+  {% endif %}
+ <br>
+   
+  <strong>Background: </strong>{{DNDbackground}}
+<br>
+
+<small>-&ensp;{{DNDBskills[0].name}}
+  <input type="text" name=bSkill1 id=bSkill1, value ={{DNDBskills[0].name}} hidden></input>
+<br>
+-&ensp;{{DNDBskills[1].name}}
+<input type="text" name=bSkill2 id=bSkill2, value ={{DNDBskills[1].name}} hidden></input>
+</small>
+</p>
+
+
+
+<input type="submit" value="Next Step"></button>
+<input type="text" name="className" id="className" value = {{DNDclass}} hidden><br>
+<input type="text" name="backgroundName" id="backgroundName" value = "{{DNDbackground}}" hidden><br>
+<input type="text" name="raceName" id="raceName" value = {{DNDrace}} hidden><br>
+
+</form>
+{% endblock %}

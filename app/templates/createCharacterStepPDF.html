@@ -1,0 +1,24 @@
+{% extends "layout.html" %}
+{% block title %}
+    Character Creation Step PDF:
+{% endblock %}
+{% block content %}
+
+We will have a pdf here!
+{{pdffile}}
+
+<embed src = "https://drive.google.com/file/d/1Iuxf33aizoCgBCEFU5IV633dSBHVg38Z/preview?usp=sharing" width="800px" height="2100px" />
+
+<table>
+
+    
+    {%for part in range(114)%}
+    <tr>
+        <td id = "modSTR"> {{char_info_name[part][0]}} </td>
+        <td id = "modSTR"> {{char_info[0][part]}} </td> 
+
+    </tr>
+    {% endfor %}
+
+</table>
+{% endblock %}
